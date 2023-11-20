@@ -1,48 +1,86 @@
-const searchInput = document.querySelector('.search-input');
-searchInput.addEventListener('input', (event) => {
-    const query = event.target.value;
-    if (query.length > 2) { // Optionnel: déclencher la recherche après 2 caractères
-        searchYouTube(query);
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    loadTrendingMusic();
+    loadCategories();
 });
 
-function searchYouTube(query) {
-    // Assurez-vous de remplacer cette clé par votre clé API personnelle et sécurisée
+function loadTrendingMusic() {
     const apiKey = 'AIzaSyBhDzqCeJ7MTgDfptxSg8bsUBoXt6PUB2Q';
-    const requestURL = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&type=video&key=${apiKey}`;
+    const maxResults = 50; // Vous pouvez ajuster ce nombre, la limite maximale est généralement de 50
+    const requestURL = `https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&regionCode=FR&videoCategoryId=10&maxResults=${maxResults}&key=${apiKey}`;
 
     fetch(requestURL)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Erreur HTTP: ${response.status}`);
-            }
-            return response.json();
+        .then(response => response.json())
+        .then(data => {
+            displayTrendingMusic(data.items);
         })
-        .then(data => displayResults(data.items))
-        .catch(error => console.error('Erreur lors de la recherche YouTube:', error));
+        .catch(error => console.error('Erreur lors du chargement des musiques en tendance:', error));
 }
 
-function displayResults(videoItems) {
-    const resultsContainer = document.getElementById('searchResults');
-    resultsContainer.innerHTML = ''; // Effacer les résultats précédents
 
-    videoItems.forEach(item => {
-        const { videoId } = item.id;
-        const { title, thumbnails } = item.snippet;
-        const thumbnailUrl = thumbnails.default.url;
+function displayTrendingMusic(videos) {
+    const tendancesContainer = document.getElementById('tendances');
+    tendancesContainer.innerHTML = ''; // Effacer les contenus précédents
 
-        const videoDiv = document.createElement('div');
-        videoDiv.className = 'searchItem';
-        videoDiv.innerHTML = `
-            <img src="${thumbnailUrl}" alt="Miniature">
-            <span class="title">${title}</span>
+    videos.forEach(video => {
+        const artistName = extractArtistName(video.snippet.title);
+        const videoElement = document.createElement('div');
+        videoElement.className = 'video';
+        videoElement.innerHTML = `
+            <img class="thumbnailimg" src="${video.snippet.thumbnails.high.url}" alt="Miniature">
+            <h3 class="titleh3">${artistName}</h3>
         `;
+        tendancesContainer.appendChild(videoElement);
+    });
+}
 
-        videoDiv.addEventListener('click', () => {
-            window.location.href = `player.html?videoId=${videoId}`;
-        });
-        
+function extractArtistName(videoTitle) {
+    let artistName = videoTitle.split('-')[0].trim(); 
+    return artistName;
+}
 
-        resultsContainer.appendChild(videoDiv);
+
+
+
+
+function loadCategories() {
+    const categories = ['Pop', 'Hip-Hop', 'Rap', 'Drill'];
+    const categoriesContainer = document.getElementById('accueil');
+
+    categories.forEach(category => {
+        const categoryElement = document.createElement('div');
+        categoryElement.className = 'category';
+        categoryElement.innerHTML = `
+            <h3>${category}</h3>
+            <div id="category-${category}" class="videos-container"></div>
+        `;
+        categoriesContainer.appendChild(categoryElement);
+        loadVideosForCategory(category);
+    });
+}
+
+function loadVideosForCategory(category) {
+    const apiKey = 'AIzaSyBhDzqCeJ7MTgDfptxSg8bsUBoXt6PUB2Q';
+    const maxResults = 10; // Limite pour chaque catégorie
+    const requestURL = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${category}&maxResults=${maxResults}&key=${apiKey}`;
+
+    fetch(requestURL)
+        .then(response => response.json())
+        .then(data => {
+            displayVideosForCategory(data.items, category);
+        })
+        .catch(error => console.error(`Erreur lors du chargement des vidéos pour la catégorie ${category}:`, error));
+}
+
+function displayVideosForCategory(videos, category) {
+    const categoryVideosContainer = document.getElementById(`category-${category}`);
+    categoryVideosContainer.innerHTML = '';
+
+    videos.forEach(video => {
+        const videoElement = document.createElement('div');
+        videoElement.className = 'video';
+        videoElement.innerHTML = `
+            <img class="thumbnailimg" src="${video.snippet.thumbnails.high.url}" alt="Miniature">
+        `;
+        categoryVideosContainer.appendChild(videoElement);
     });
 }

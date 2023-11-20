@@ -1,0 +1,107 @@
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #121212;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    font-weight: 700;
+}
+
+/* Style de la barre de navigation */
+nav {
+    background-color: #000000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+}
+
+nav a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #b3b3b3;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #1db954;
+}
+
+/* Style de la barre de recherche */
+.search-bar {
+    position: relative;
+    width: 100%;
+    max-width: 600px; /* Limite la largeur */
+}
+
+.search-input {
+    width: 85%;
+    padding: 10px 40px 10px 15px;
+    border: none;
+    border-radius: 20px;
+    background-color: #282828;
+    height: 30px;
+    margin-top: 15px;
+    color: white;
+    font-size: 16px;
+    outline: none; /* Supprime le contour lors de la sélection */
+}
+
+.search-input::placeholder {
+    color: #b3b3b3;
+}
+
+.search-icon {
+    position: absolute;
+    top: 60%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: #b3b3b3;
+    font-size: 20px; /* Ajustez la taille si nécessaire */
+}
+
+
+/* Style des résultats de recherche */
+#searchResults {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.searchItem {
+    background-color: #181818;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.searchItem:hover {
+    background-color: #282828;
+}
+
+.searchItem img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.searchItem .title {
+    color: #fff; /* Couleur initiale */
+    transition: color 0.3s ease; /* Transition pour un effet de fondu */
+}
+
+.searchItem:hover .title {
+    color: #1db954; /* Couleur verte au survol */
+}
+
+.hr {
+    color: #1db954;
+    border:  1px solid #1db954;
+    margin-top: -1px;
+}
