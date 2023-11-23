@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const videoId = urlParams.get('videoId');
-
-    // Ici, utilisez videoId pour afficher la vidéo ou effectuer d'autres actions
+    // Utilisez l'ID de la vidéo pour charger les détails et contrôler le lecteur
 });

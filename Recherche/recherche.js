@@ -39,7 +39,7 @@ function displayResults(videoItems) {
         `;
 
         videoDiv.addEventListener('click', () => {
-            window.location.href = `player.html?videoId=${videoId}`;
+            window.location.href = `../Lecteur/player.html?videoId=${videoId}`;
         });
         
 
