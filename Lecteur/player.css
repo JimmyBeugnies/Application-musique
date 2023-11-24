@@ -46,7 +46,7 @@ nav a:hover {
 
 
 .hr {
-    color: #1db954;
-    border:  1px solid #1db954;
+    color: rgb(255, 71, 4);
+    border:  1px solid rgb(255, 71, 4);
     margin-top: -1px;
 }

@@ -25,7 +25,7 @@ nav a {
 }
 
 nav a:hover {
-    color: #1db954;
+    color: rgb(255, 71, 4);
 }
 
 /* Style de la barre de recherche */
@@ -97,11 +97,11 @@ nav a:hover {
 }
 
 .searchItem:hover .title {
-    color: #1db954; /* Couleur verte au survol */
+    color: rgb(255, 71, 4); /* Couleur verte au survol */
 }
 
 .hr {
-    color: #1db954;
-    border:  1px solid #1db954;
+    color: rgb(255, 71, 4);
+    border:  1px solid rgb(255, 71, 4);
     margin-top: -1px;
 }

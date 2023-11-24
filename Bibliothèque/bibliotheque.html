@@ -12,32 +12,13 @@
         <a href="./bibliotheque.html">Bibliothèque</a>
     </nav>
     <hr class="hr">
+
+    <div>
+        <input type="text" id="youtubeUrl" placeholder="Entrez l'URL de la vidéo YouTube">
+        <button id="addVideo">Ajouter</button>
+    </div>
     
-    <div id="bibliotheque" class="bibliotheque-section">
-        <h2>Bibliothèque</h2>
-        <button id="addPlaylistBtn" class="add-btn">Ajouter Playlist</button>
-        <div id="playlistsContainer"></div>
-    </div>
-
-    <!-- Modal pour ajouter une playlist -->
-    <div id="addPlaylistModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h3>Ajouter une nouvelle playlist</h3>
-            <input type="text" id="playlistNameInput" placeholder="Nom de la playlist">
-            <button id="createPlaylistBtn">Créer</button>
-        </div>
-    </div>
-
-    <!-- Modal pour ajouter une musique -->
-    <div id="addMusicModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h3>Ajouter une musique à la playlist</h3>
-            <input type="text" id="ytUrlInput" placeholder="URL YouTube">
-            <button id="addMusicBtn">Ajouter</button>
-        </div>
-    </div>
+    <div id="playlistContainer"></div>
 
     <script src="./bibliotheque.js"></script>
 </body>
