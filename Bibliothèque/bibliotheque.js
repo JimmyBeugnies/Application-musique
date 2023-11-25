@@ -30,7 +30,7 @@ function renderVideos() {
     container.innerHTML = ''; // Clear previous contents
     videos.forEach(videoId => {
         const link = document.createElement('a');
-        link.href = `player.html?videoId=${videoId}`;
+        link.href = `../Lecteur/player.html?videoId=${videoId}`;
         link.target = '_blank';
         link.innerText = `Play Video ${videoId}`;
         container.appendChild(link);
