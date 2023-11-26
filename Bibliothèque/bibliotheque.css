@@ -29,35 +29,40 @@ nav a:hover {
 
 .hr {
     color: rgb(255, 71, 4);
-    border: 1px solid rgb(255, 71, 4);
+    border: 3px solid rgb(255, 71, 4);
     margin-top: -1px;
 }
 /* Add your styles here */
 
 
-#playlistContainer a {
-    display: block;
-    margin: 5px 0;
-    color: #0000EE;
-    text-decoration: none;
-}
 
-#playlistContainer a:hover {
-    text-decoration: underline;
-}
+  .player {
+    width: 300px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
 
-nav a {
-    margin-right: 15px;
-    text-decoration: none;
-    color: rgb(255, 71, 4);
-}
+  .player input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+  }
 
-nav a:hover {
-    text-decoration: underline;
-}
+  .player button {
+    padding: 10px 20px;
+    background-color: rgb(255, 71, 4);
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 
-.hr {
-    margin-top: 10px;
+  /* Ajoutez vos styles personnalisés ici */
+.card {
+    cursor: pointer;
+    margin-bottom: 20px;
 }
-
-/* Additional styles can be added as needed */
