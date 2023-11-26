@@ -61,8 +61,20 @@ nav a:hover {
     cursor: pointer;
   }
 
-  /* Ajoutez vos styles personnalisés ici */
-.card {
-    cursor: pointer;
-    margin-bottom: 20px;
-}
+  .card {
+    border: 2px solid #000;
+    margin-bottom: 10px;
+  }
+  
+  .card-title {
+    font-weight: bold;
+  }
+  
+  .song {
+    margin-bottom: 5px;
+  }
+
+  #modalAddMusicBtn {
+    background-color: #007bff;
+    color: #fff;
+  }

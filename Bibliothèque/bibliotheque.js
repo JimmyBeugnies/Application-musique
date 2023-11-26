@@ -10,15 +10,14 @@ $(document).ready(function () {
       container.empty();
       playlists.forEach((playlist, index) => {
         let playlistDiv = $(`
-          <div class="card" data-index="${index}">
+        <div class="card" data-index="${index}">
             <img src="../Assets/default.png" class="card-img-top">
             <div class="card-body">
-              <h5 class="card-title" style="color: #000;">Playlist ${index + 1} - ${playlist.name}</h5>
-              <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#playlistModal" data-playlist-index="${index}">Ouvrir</button>
-              <button type="button" class="btn btn-danger btn-sm deletePlaylistBtn" data-playlist-index="${index}">Supprimer</button>
+                <h5 class="card-title" style="color: #000;">Playlist ${index + 1} - ${playlist.name}</h5>
+                <button type="button" class="btn btn-danger btn-sm deletePlaylistBtn" data-playlist-index="${index}">Supprimer</button>
+                <button type="button" class="btn btn-primary btn-sm addMusicBtn" data-playlist-index="${index}">Ajouter une musique</button><!-- Ajouter le bouton "Ajouter une musique" ici -->
             </div>
-          </div>
-        `);
+        </div>`);
         container.append(playlistDiv);
       });
   
@@ -39,7 +38,7 @@ $(document).ready(function () {
     function addMusicToPlaylist(playlistIndex, musicUrl) {
       let playlist = playlists[playlistIndex];
       if (playlist) {
-        playlist.songs.push(musicUrl);
+        playlist.songs.push({ url: musicUrl });
         savePlaylists();
         displayPlaylistSongs(playlistIndex);
       }
@@ -50,10 +49,11 @@ $(document).ready(function () {
       let modalBody = $("#playlistModal .modal-body");
       modalBody.empty();
   
-      playlist.songs.forEach((songUrl) => {
+      playlist.songs.forEach((song) => {
         let songDiv = $(`
           <div class="song">
-            <span>${songUrl}</span>
+            <img src="https://i.ytimg.com/vi/${getYoutubeVideoId(song.url)}/default.jpg" alt="Thumbnail" style="width: 10px; height: 10px;">
+            <span>${song.title}</span>
           </div>
         `);
         modalBody.append(songDiv);
@@ -72,7 +72,7 @@ $(document).ready(function () {
         playlists.push({ name: playlistName, songs: [] });
         savePlaylists();
         displayPlaylists();
-        $('#createPlaylistModal').modal('hide'); // Ferme la modale HTML
+        $('#createPlaylistModal').modal('hide'); // Ferme la modal HTML
       }
     });
   
@@ -90,4 +90,49 @@ $(document).ready(function () {
         addMusicToPlaylist(playlistIndex, musicUrl);
       }
     });
+  
+    $('.addMusicBtn').click(function() {
+        $('#addMusicModal').modal('show');
+    });
+    $('#addMusicBtnConfirm').click(function() {
+        let musicUrl = $('#musicUrlInput').val();
+    
+        // Récupérer la playlist correspondante
+        let playlistIndex = $(this).data('playlist-index');
+        let playlist = getPlaylist(playlistIndex);
+    
+        // Enregistrer la musique dans la playlist
+        playlist.songs.push({
+            url: musicUrl
+        });
+    
+        // Mettre à jour la playlist dans le LocalStorage
+        updatePlaylist(playlistIndex, playlist);
+    
+        $('#addMusicModal').modal('hide'); // Ferme la modale une fois la musique enregistrée
+    });
+    
+    // Fonction pour récupérer la playlist depuis le LocalStorage
+    function getPlaylist(playlistIndex) {
+        let playlists = JSON.parse(localStorage.getItem('playlists'));
+        return playlists[playlistIndex];
+    }
+    
+    // Fonction pour mettre à jour la playlist dans le LocalStorage
+    function updatePlaylist(playlistIndex, playlist) {
+        let playlists = JSON.parse(localStorage.getItem('playlists'));
+        playlists[playlistIndex] = playlist;
+        localStorage.setItem('playlists', JSON.stringify(playlists));
+    }
+
+    // Fonction utilitaire pour extraire l'ID de la vidéo YouTube de l'URL
+    function getYoutubeVideoId(url) {
+      let videoId = "";
+      try {
+        videoId = url.match(/(?<=v=|youtu.be\/|\/embed\/|\/v\/|\/\d{1,2}\/|\/embed\?)[^#\&\?\n\/]{11}/)[0];
+      } catch (e) {
+        console.error("Failed to extract YouTube video ID from the URL:", url);
+      }
+      return videoId;
+    }
   });
