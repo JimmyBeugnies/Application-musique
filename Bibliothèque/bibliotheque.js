@@ -35,15 +35,19 @@ $(document).ready(function () {
       displayPlaylists();
     }
   
-    function addMusicToPlaylist(playlistIndex, musicUrl) {
-      let playlist = playlists[playlistIndex];
-      if (playlist) {
-        playlist.songs.push({ url: musicUrl });
-        savePlaylists();
-        displayPlaylistSongs(playlistIndex);
-      }
+// Modifier la fonction addMusicToPlaylist() pour extraire le titre de la chanson à partir de l'URL
+function addMusicToPlaylist(playlistIndex, musicUrl) {
+    let playlist = playlists[playlistIndex];
+    if (playlist) {
+      // Extrait le titre de la chanson de l'URL en utilisant une expression régulière
+      let title = musicUrl.match(/[^/]+$/)[0];
+      playlist.songs.push({ title: title, url: musicUrl }); // Ajoute le titre de la chanson
+      savePlaylists();
+      displayPlaylistSongs(playlistIndex);
     }
+  }
   
+
     function displayPlaylistSongs(playlistIndex) {
       let playlist = playlists[playlistIndex];
       let modalBody = $("#playlistModal .modal-body");
@@ -97,19 +101,35 @@ $(document).ready(function () {
     $('#addMusicBtnConfirm').click(function() {
         let musicUrl = $('#musicUrlInput').val();
     
-        // Récupérer la playlist correspondante
-        let playlistIndex = $(this).data('playlist-index');
-        let playlist = getPlaylist(playlistIndex);
+        // Récupérer l'index de la playlist
+        let playlistIndex = $('#addMusicModal').data('playlist-index');
+        
+        // Vérifier si la playlist existe
+        if (playlistIndex !== undefined && playlistIndex >= 0 && playlistIndex < playlists.length) {
+            let playlist = playlists[playlistIndex];
+            
+            // Vérifier si l'URL de la musique est valide
+            if (musicUrl && isValidYoutubeUrl(musicUrl)) {
+                // Extraire le titre de la chanson de l'URL
+                let title = extractYoutubeVideoTitle(musicUrl);
+                
+                // Ajouter la musique à la playlist
+                playlist.songs.push({ title: title, url: musicUrl });
     
-        // Enregistrer la musique dans la playlist
-        playlist.songs.push({
-            url: musicUrl
-        });
-    
-        // Mettre à jour la playlist dans le LocalStorage
-        updatePlaylist(playlistIndex, playlist);
-    
-        $('#addMusicModal').modal('hide'); // Ferme la modale une fois la musique enregistrée
+                // Enregistrer la playlist mise à jour
+                updatePlaylist(playlistIndex, playlist);
+                
+                // Fermer la modale une fois la musique enregistrée
+                $('#addMusicModal').modal('hide');
+                
+                // Afficher les chansons de la playlist mise à jour
+                displayPlaylistSongs(playlistIndex);
+            } else {
+                alert('L\'URL de la musique YouTube est invalide.');
+            }
+        } else {
+            alert('La playlist sélectionnée est introuvable.');
+        }
     });
     
     // Fonction pour récupérer la playlist depuis le LocalStorage
@@ -119,9 +139,11 @@ $(document).ready(function () {
     }
     
     // Fonction pour mettre à jour la playlist dans le LocalStorage
-    function updatePlaylist(playlistIndex, playlist) {
-        let playlists = JSON.parse(localStorage.getItem('playlists'));
-        playlists[playlistIndex] = playlist;
+  // Modifier la fonction updatePlaylist() pour directement sauvegarder la playlist mise à jour
+  function updatePlaylist(playlistIndex, playlist) {
+    playlists[playlistIndex] = playlist;
+    savePlaylists();
+  
         localStorage.setItem('playlists', JSON.stringify(playlists));
     }
 
