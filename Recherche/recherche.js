@@ -8,7 +8,7 @@ searchInput.addEventListener('input', (event) => {
 
 function searchYouTube(query) {
     // Assurez-vous de remplacer cette clé par votre clé API personnelle et sécurisée
-    const apiKey = 'AIzaSyBhDzqCeJ7MTgDfptxSg8bsUBoXt6PUB2Q';
+    const apiKey = 'AIzaSyAh0JDHZA3L_xgnMS4UKC5Iq7MLXPHwK0o';
     const requestURL = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&type=video&key=${apiKey}`;
 
     fetch(requestURL)

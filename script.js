@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function loadTrendingMusic() {
-    const apiKey = 'AIzaSyBhDzqCeJ7MTgDfptxSg8bsUBoXt6PUB2Q';
+    const apiKey = 'AIzaSyAh0JDHZA3L_xgnMS4UKC5Iq7MLXPHwK0o';
     const maxResults = 50; // Vous pouvez ajuster ce nombre, la limite maximale est généralement de 50
     const requestURL = `https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&regionCode=FR&videoCategoryId=10&maxResults=${maxResults}&key=${apiKey}`;
 
@@ -59,7 +59,7 @@ function loadCategories() {
 }
 
 function loadVideosForCategory(category) {
-    const apiKey = 'AIzaSyBhDzqCeJ7MTgDfptxSg8bsUBoXt6PUB2Q';
+    const apiKey = 'AIzaSyAh0JDHZA3L_xgnMS4UKC5Iq7MLXPHwK0o';
     const maxResults = 10; // Limite pour chaque catégorie
     const requestURL = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${category}&maxResults=${maxResults}&key=${apiKey}`;
 

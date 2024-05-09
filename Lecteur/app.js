@@ -88,7 +88,7 @@ progressBar.addEventListener('input', function() {
 
 /*   const apiKey = 'AIzaSyBhDzqCeJ7MTgDfptxSg8bsUBoXt6PUB2Q';
  */function getVideoDetails(videoId) {
-  const apiKey = 'AIzaSyBhDzqCeJ7MTgDfptxSg8bsUBoXt6PUB2Q';
+  const apiKey = 'AIzaSyAh0JDHZA3L_xgnMS4UKC5Iq7MLXPHwK0o';
 
   fetch(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${apiKey}&part=snippet`)
     .then(response => response.json())
