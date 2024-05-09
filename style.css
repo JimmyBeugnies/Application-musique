@@ -67,6 +67,10 @@ h2 {
     gap: 20px; 
 }
 
+.artist-section:hover, .trend-section:hover {
+    cursor: pointer;
+}
+
 .artist-item {
     display: flex;
     width: 33%;
